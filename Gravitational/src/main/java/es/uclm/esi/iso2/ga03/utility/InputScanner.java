@@ -4,31 +4,31 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputScanner {
-	public static String leerStringDesdeTeclado() {
-        Scanner scanner = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingresa una cadena: ");
-        String entradaUsuario = scanner.nextLine();
+	public static double readPositiveDouble(String task) {
+		while (true) {
+			try {
+				System.out.print(task);
+				return askInput();
+			} catch (InputMismatchException e) {
+				System.err.println("Error: Enter a valid number.");
+				scanner.next();
+			} catch (IllegalArgumentException e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
+	}
 
-        scanner.close();
-        return entradaUsuario;
-    }
-	
-	public static double leerDoubleDesdeTeclado() {
-        Scanner scanner = new Scanner(System.in);
+	private static void checkPositiveInput(double input) {
+		if (input <= 0) {
+			throw new IllegalArgumentException("Enter a positive number greater than zero.");
+		}
+	}
 
-        double entradaUsuario = 0.0;
-
-        try {
-            System.out.print("Ingresa un número double: ");
-            entradaUsuario = scanner.nextDouble();
-        } catch (InputMismatchException e) {
-            scanner.next();
-            throw e;
-        } finally {
-            scanner.close();
-        }
-
-        return entradaUsuario;
-    }
+	private static double askInput() {
+		double input = scanner.nextDouble();
+		checkPositiveInput(input);
+		return input;
+	}
 }
