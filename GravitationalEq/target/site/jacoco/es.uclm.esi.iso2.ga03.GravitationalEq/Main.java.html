@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GravitationalEq</a> &gt; <a href="index.source.html" class="el_package">es.uclm.esi.iso2.ga03.GravitationalEq</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package es.uclm.esi.iso2.ga03.GravitationalEq;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+<span class="nc" id="L6">public class Main {</span>
+<span class="fc" id="L7">	final static Scanner scanner = new Scanner(System.in);</span>
+	public static void main(String[] args) {
+        try {
+<span class="nc" id="L10">            printResult(askValues());</span>
+            
+<span class="nc" id="L12">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L13">            System.out.println(&quot;Error: &quot; + e.getMessage());</span>
+        }
+<span class="nc" id="L15">    }</span>
+	
+	public static void printResult(double gravitationalForce) {
+<span class="fc" id="L18">		System.out.println(&quot;Gravitational Force: &quot; + gravitationalForce + &quot; Newtons&quot;);</span>
+<span class="fc" id="L19">	}</span>
+	
+	public static double askValues() {
+<span class="fc" id="L22">		 double mass1 = returnValues(&quot;Enter the mass of the first object: &quot;);</span>
+<span class="fc" id="L23">         double mass2 = returnValues(&quot;Enter the mass of the second object: &quot;);</span>
+<span class="fc" id="L24">		 double distance = returnValues(&quot;Enter the distance between the objects: &quot;);</span>
+<span class="fc" id="L25">		 GravitationalEquation gravitationalEquation = new GravitationalEquation(mass1, mass2, distance);</span>
+<span class="fc" id="L26">         return calculateResult(gravitationalEquation);</span>
+	}
+	
+	public static double returnValues(String task) {
+<span class="fc" id="L30">		double value = 0.0;</span>
+			try {
+<span class="fc" id="L32">				System.out.print(task);</span>
+<span class="nc" id="L33">				value = scanner.nextDouble();</span>
+<span class="nc" id="L34">				checkPositiveInput(value);</span>
+<span class="pc" id="L35">			} catch (InputMismatchException e) {</span>
+<span class="fc" id="L36">				System.err.println(&quot;Error: Enter a valid number.&quot;);</span>
+<span class="fc" id="L37">				scanner.next();</span>
+<span class="nc" id="L38">			} catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L39">				System.err.println(&quot;Error: &quot; + e.getMessage());</span>
+			}
+<span class="fc" id="L41">			return value;</span>
+		}
+	
+	public static void checkPositiveInput(double input) {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		if (isPositive(input) == false) {</span>
+<span class="fc" id="L46">			throw new IllegalArgumentException(&quot;Enter a positive number greater than zero.&quot;);</span>
+		}
+<span class="fc" id="L48">	}</span>
+
+	public static boolean isPositive(double input) {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		if (input &lt;= 0) {</span>
+<span class="fc" id="L52">			return false;</span>
+		}
+		else {
+<span class="fc" id="L55">			return true;</span>
+		}
+	}
+	
+	public static double calculateResult(GravitationalEquation gravitationalEquation) {
+<span class="fc" id="L60">		return gravitationalEquation.calculateGravitationalForce();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
